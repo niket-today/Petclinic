@@ -10,7 +10,7 @@ pipeline {
         
         stage("Git Checkout"){
             steps{
-                git feature: 'feature', url: 'https://github.com/niket-today/Petclinic.git'
+                git branch: 'feature', url: 'https://github.com/niket-today/Petclinic.git'
             }
         }
         
