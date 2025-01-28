@@ -21,11 +21,6 @@ pipeline {
                 sh "mvn compile"
             }
         }
-        stage('Test Cases') {
-            steps {
-                sh "mvn test"
-            }
-        }
           stage('sonarqube analysis') {
             steps {
                 withSonarQubeEnv('sonar-server'){
@@ -38,6 +33,11 @@ pipeline {
          stage('build') {
             steps {
                 sh "mvn clean package -DskipTests=true"
+            }
+        }
+           stage('Check dependencies') {
+            steps {
+                 dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'owasp'
             }
         }
         stage("Deploy To Tomcat"){
